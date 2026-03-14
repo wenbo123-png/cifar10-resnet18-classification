@@ -5,7 +5,7 @@ import streamlit as st
 import torch
 from PIL import Image
 from torchvision.transforms import Compose, Normalize, Resize, ToTensor
-from CNN_CIFAR10图像分类 import ImageModel, device
+from resnet18_cifar10.py import ImageModel, device
 
 # CIFAR-10 标签
 CLASS_NAMES = [
