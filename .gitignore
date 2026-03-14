@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyd
+*.so
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+ENV/
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# PyTorch / ML artifacts
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Data & generated outputs (建议不要提交到 Git)
+data/
+datasets/
+runs/
+logs/
+outputs/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# exclude whole dirs you don't want
+data/
+自然语言处理/
+原代码备份/
+
+# exclude model weights except the one you want
+model/*.pth
+!model/image_model_best.pth
