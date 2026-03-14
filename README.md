@@ -12,6 +12,29 @@
 
 ---
 
+## 结果展示（Results）
+- **测试集准确率：93.1%**
+
+### 训练曲线（Training Curves）
+| Accuracy | Loss |
+| --- | --- |
+| ![](可视化/figures/acc_curve.png) | ![](可视化/figures/loss_curve.png) |
+
+| Learning Rate | Time / Epoch |
+| --- | --- |
+| ![](可视化/figures/lr_curve.png) | ![](可视化/figures/time_curve.png) |
+
+### Base CNN vs ResNet18 对比（Comparison）
+![](可视化/figures/compare_base_vs_best.png)
+
+### 混淆矩阵（ResNet18）
+![](可视化/figures/confusion_matrix_resnet18.png)
+
+### 预测样例（Prediction Samples）
+![](可视化/figures/prediction_samples_resnet18.png)
+
+---
+
 ## 核心方法（Core Methods）
 
 ### 数据集与预处理
@@ -40,30 +63,6 @@
 
 ---
 
-## 结果展示（Results）
-- **测试集准确率：93.1%**
-
-### 训练曲线（Training Curves）
-| Accuracy | Loss |
-| --- | --- |
-| ![](可视化/figures/acc_curve.png) | ![](可视化/figures/loss_curve.png) |
-
-| Learning Rate | Time / Epoch |
-| --- | --- |
-| ![](可视化/figures/lr_curve.png) | ![](可视化/figures/time_curve.png) |
-
-### Base CNN vs ResNet18 对比（Comparison）
-![](可视化/figures/compare_base_vs_best.png)
-
-### 混淆矩阵（ResNet18）
-![](可视化/figures/confusion_matrix_resnet18.png)
-
-### 预测样��（Prediction Samples）
-![](可视化/figures/prediction_samples_resnet18.png)
-
----
-
-
 ## 图表解读（Interpretation）
 > 详细文字版见：`可视化/图像分析说明.txt`
 
@@ -71,6 +70,7 @@
 - **loss_curve.png**：训练损失从约 `1.52` 平滑下降到 `0.30` 左右，后期进入平台期，符合正常收敛规律，未出现明显震荡或发散。
 - **lr_curve.png**：学习率由 `1e-3` 逐步衰减到约 `1e-4`；前期较大学习率加速收敛，后期小学习率用于稳定微调，与验证集准确率后期保持高位一致。
 - **time_curve.png**：单轮耗时存在波动（约 `50s~90s`），可能受数据加载或系统调度影响；但整体收敛稳定，波动未明显破坏训练趋势。
+- **compare_base_vs_best.png（Base CNN vs ResNet18 对比图）**：该图对比了 Baseline（Base CNN）与改进模型（ResNet18）的训练曲线。可以观察到 ResNet18 在相同 epoch 区间内整体呈现**更高的训练准确率、以及更低/更快下降的训练损失**，说明引入残差结构并结合适配与训练策略后，模型的表征能力与优化稳定性更强；这也与最终测试集约 **93%** 的表现相一致。
 - **confusion_matrix_resnet18.png**：归一化混淆矩阵显示大部分类别识别率较高（对角线多数在 `0.92+`），与测试集 `~93%` 准确率相互印证。  
   其中 `automobile / frog / truck / airplane / ship` 等类别效果最好；`cat` 与 `dog` 互相混淆最明显（cat→dog 约 7%，dog→cat 约 6%），后续优化可重点针对细粒度动物类别做更强的数据增强或更精细的特征学习。
 
@@ -149,7 +149,7 @@ streamlit run 图像分类app.py
 
 ---
 
-## 可视化与分析（Visualization & Analysis）
+## ���视化与分析（Visualization & Analysis）
 运行日志解析与可视化脚本（会读取 `可视化/` 下的日志文件并生成图像到 `可视化/figures/`）：
 
 ```bash
