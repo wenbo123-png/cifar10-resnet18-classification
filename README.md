@@ -116,6 +116,17 @@ pip install -r requirements.txt
 
 ---
 
+## 可复现性说明（Reproducibility）
+- **数据集下载位置**：首次运行会自动下载 CIFAR-10 到项目根目录的 `./data/`（该目录不上传仓库）。
+- **评估复现（推荐路径）**：仓库已提供最优模型权重 `model/image_model_best.pth`，因此无需重新训练即可复现实验指标。  
+  - 运行：`python resnet18_cifar10.py`  
+  - 预期输出：`Acc:0.931`（不同机器/环境可能存在轻微浮动，一般在 `±0.005` 内属正常）
+- **训练复现（可选）**：如需从头训练，可在 `resnet18_cifar10.py` 中取消注释 `train(train_dataset)` 后运行训练。  
+  说明：由于 GPU 非确定性与数据加载差异，从头训练得到的最终精度可能与 0.931 存在小幅差异，但整体收敛趋势应与可视化曲线一致。
+- **Streamlit Demo 说明**：Demo 推理会对输入图片做 `Resize(32,32)` + 与训练一致的 `Normalize`，以尽量保证输入分布对齐；对非 CIFAR-10 风格图片预测可能不稳定（正常现象）。
+
+---
+
 ## 快速开始（Quick Start）
 
 ### 1) 测试/评估（默认）
