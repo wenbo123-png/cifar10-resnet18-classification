@@ -12,6 +12,29 @@
 
 ---
 
+## 结果展示（Results）
+- **测试集准确率：93.1%**
+
+### 训练曲线（Training Curves）
+| Accuracy | Loss |
+| --- | --- |
+| ![](可视化/figures/acc_curve.png) | ![](可视化/figures/loss_curve.png) |
+
+| Learning Rate | Time / Epoch |
+| --- | --- |
+| ![](可视化/figures/lr_curve.png) | ![](可视化/figures/time_curve.png) |
+
+### Base CNN vs ResNet18 对比（Comparison）
+![](可视化/figures/compare_base_vs_best.png)
+
+### 混淆矩阵（ResNet18）
+![](可视化/figures/confusion_matrix_resnet18.png)
+
+### 预测样例（Prediction Samples）
+![](可视化/figures/prediction_samples_resnet18.png)
+
+---
+
 ## 核心方法（Core Methods）
 
 ### 数据集与预处理
@@ -43,7 +66,7 @@
 ## 模型优化过程说明（阶段记录）
 > 详细记录见：`可视化/图像分析说明.txt`
 
-本项目经历了三个阶段的迭代优化：
+本项��经历了三个阶段的迭代优化：
 
 ### 阶段 1：基础 CNN（Baseline）
 - 使用三层卷积网络完成 CIFAR-10 分类任务，作为初始基线模型。
@@ -62,29 +85,6 @@
 ### 结论
 - 关键性能提升来源于 **“模型架构升级（ResNet18）+ 训练策略协同优化”**。
 - 在 Demo 推理中，对高清图也能给出合理预测：推理前做了 `Resize(32,32)` + 与训练一致的 `Normalize`，保证输入分布与训练阶段对齐；预测是否稳定主要取决于图片内容与 CIFAR-10 类别的相似度。
-
----
-
-## 结果展示（Results）
-- **测试集准确率：93.1%**
-
-### 训练曲线（Training Curves）
-| Accuracy | Loss |
-| --- | --- |
-| ![](可视化/figures/acc_curve.png) | ![](可视化/figures/loss_curve.png) |
-
-| Learning Rate | Time / Epoch |
-| --- | --- |
-| ![](可视化/figures/lr_curve.png) | ![](可视化/figures/time_curve.png) |
-
-### Base CNN vs ResNet18 对比（Comparison）
-![](可视化/figures/compare_base_vs_best.png)
-
-### 混淆矩阵（ResNet18）
-![](可视化/figures/confusion_matrix_resnet18.png)
-
-### 预测样例（Prediction Samples）
-![](可视化/figures/prediction_samples_resnet18.png)
 
 ---
 
