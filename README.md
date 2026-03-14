@@ -1,21 +1,21 @@
-# CIFAR-10 ResNet18 Classification (PyTorch)
+# CIFAR-10 ResNet18 图像分类（PyTorch + Streamlit）
 
-使用 **PyTorch** 在 **CIFAR-10** 数据集上训练/评估一个针对 `32×32` 小图做过结构适配的 **ResNet18** 分类模型，并提供：
+基于 **PyTorch** 在 **CIFAR-10** 数据集上训练/评估一个针对 `32×32` 小图做过结构适配的 **ResNet18** 分类模型，并提供：
 
 - 最优模型权重：`model/image_model_best.pth`
-- 训练可视化与混淆矩阵：`可视化/figures/`
-- 测试图：`测试图片/`
-- Streamlit 交互 Demo：`图像分类app.py`
+- 训练可视化、混淆矩阵、预测样例：`可视化/figures/`
+- 测试图片：`测试图片/`
+- Streamlit 交互演示：`图像分类app.py`
 - 日志解析与可视化、混淆矩阵/预测样例导出工具：`cnn_analysis_tools.py`
 
 > 数据集不上传到仓库：运行时使用 `torchvision.datasets.CIFAR10(download=True)` 自动下载到本地 `./data`。
 
 ---
 
-## Results
-- **Test Accuracy：93.1%**（你可以按实际情况在这里更新/补充训练配置）
+## 结果展示（Results）
+- **测试集准确率：93.1%**
 
-### Training Curves
+### 训练曲线（Training Curves）
 | Accuracy | Loss |
 | --- | --- |
 | ![](可视化/figures/acc_curve.png) | ![](可视化/figures/loss_curve.png) |
@@ -24,18 +24,30 @@
 | --- | --- |
 | ![](可视化/figures/lr_curve.png) | ![](可视化/figures/time_curve.png) |
 
-### Base CNN vs ResNet18 (Comparison)
+### Base CNN vs ResNet18 对比（Comparison）
 ![](可视化/figures/compare_base_vs_best.png)
 
-### Confusion Matrix (ResNet18)
+### 混淆矩阵（ResNet18）
 ![](可视化/figures/confusion_matrix_resnet18.png)
 
-### Prediction Samples
+### 预测样例（Prediction Samples）
 ![](可视化/figures/prediction_samples_resnet18.png)
 
 ---
 
-## Environment & Installation
+## 图表解读（Interpretation）
+> 详细文字版见：`可视化/图像分析说明.txt`
+
+- **acc_curve.png**：训练准确率约从 `0.48 → 0.99`；验证准确率从约 `0.55` 提升并稳定在 `0.93~0.94`。说明模型有效学习到特征并具备较强泛化能力；训练-验证存在约 `0.05~0.06` 的间隙，提示轻微过拟合但在可控范围内。
+- **loss_curve.png**：训练损失从约 `1.52` 平滑下降到 `0.30` 左右，后期进入平台期，符合正常收敛规律，未出现明显震荡或发散。
+- **lr_curve.png**：学习率由 `1e-3` 逐步衰减到约 `1e-4`；前期较大学习率加速收敛，后期小学习率用于稳定微调，与验证集准确率后期保持高位一致。
+- **time_curve.png**：单轮耗时存在波动（约 `50s~90s`），可能受数据加载或系统调度影响；但整体收敛稳定，波动未明显破坏训练趋势。
+- **confusion_matrix_resnet18.png**：归一化混淆矩阵显示大部分类别识别率较高（对角线多数在 `0.92+`），与测试集 `~93%` 准确率相互印证。  
+  其中 `automobile / frog / truck / airplane / ship` 等类别效果最好；`cat` 与 `dog` 互相混淆最明显（cat→dog 约 7%，dog→cat 约 6%），后续优化可重点针对细粒度动物类别做更强的数据增强或更精细的特征学习。
+
+---
+
+## 环境与安装（Environment & Installation）
 - Python 3.x
 - PyTorch / torchvision
 - Streamlit（用于 Web Demo）
@@ -50,9 +62,9 @@ pip install -r requirements.txt
 
 ---
 
-## Quick Start
+## 快速开始（Quick Start）
 
-### 1) Evaluate (default)
+### 1) 测试/评估（默认）
 `CNN_CIFAR10图像分类.py` 当前默认执行 `evaluate(test_dataset)`，并从 `model/image_model_best.pth` 加载权重：
 
 ```bash
@@ -61,7 +73,7 @@ python CNN_CIFAR10图像分类.py
 
 输出示例：`Acc:0.xxx`
 
-### 2) Train (optional)
+### 2) 训练（可选）
 在 `CNN_CIFAR10图像分类.py` 的主入口中，将训练行取消注释：
 
 ```python
@@ -86,7 +98,7 @@ python CNN_CIFAR10图像分类.py
 
 ---
 
-## Streamlit Demo
+## Streamlit 交互演示（Demo）
 启动交互演示：
 
 ```bash
@@ -101,14 +113,14 @@ streamlit run 图像分类app.py
 
 ---
 
-## Visualization & Analysis
+## 可视化与分析（Visualization & Analysis）
 运行日志解析与可视化脚本（会读取 `可视化/` 下的日志文件并生成图像到 `可视化/figures/`）：
 
 ```bash
 python cnn_analysis_tools.py
 ```
 
-另外，该脚本也提供：
+该脚本也提供：
 - `export_confusion_matrix_resnet18(...)`
 - `export_prediction_samples_resnet18(...)`
 
@@ -116,7 +128,7 @@ python cnn_analysis_tools.py
 
 ---
 
-## Project Structure
+## 项目结构（Project Structure）
 ```text
 .
 ├─ model/
@@ -124,6 +136,8 @@ python cnn_analysis_tools.py
 ├─ 可视化/
 │  ├─ base_train_data.txt
 │  ├─ best_train_data.txt
+│  ├─ confusion_matrix_resnet18.csv
+│  ├─ 图像分析说明.txt
 │  └─ figures/
 │     ├─ acc_curve.png
 │     ├─ loss_curve.png
@@ -142,7 +156,7 @@ python cnn_analysis_tools.py
 
 ---
 
-## Notes
+## 说明（Notes）
 - CIFAR-10 会自动下载到本地 `./data`（该目录不建议提交到仓库）。
 - 代码会自动选择设备：有 CUDA 则用 GPU，否则用 CPU。
 
