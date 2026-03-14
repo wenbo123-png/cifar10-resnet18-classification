@@ -4,7 +4,7 @@
 
 - 最优模型权重：`model/image_model_best.pth`
 - 训练可视化与混淆矩阵：`可视化/figures/`
-- 测试图��：`测试图片/`
+- 测试图：`测试图片/`
 - Streamlit 交互 Demo：`图像分类app.py`
 - 日志解析与可视化、混淆矩阵/预测样例导出工具：`cnn_analysis_tools.py`
 
