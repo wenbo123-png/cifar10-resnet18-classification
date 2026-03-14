@@ -93,16 +93,16 @@ pip install -r requirements.txt
 ## 快速开始（Quick Start）
 
 ### 1) 测试/评估（默认）
-`CNN_CIFAR10图像分类.py` 当前默认执行 `evaluate(test_dataset)`，并从 `model/image_model_best.pth` 加载权重：
+`resnet18_cifar10.py` 当前默认执行 `evaluate(test_dataset)`，并从 `model/image_model_best.pth` 加载权重：
 
 ```bash
-python CNN_CIFAR10图像分类.py
+python resnet18_cifar10.py
 ```
 
 输出示例：`Acc:0.xxx`
 
 ### 2) 训练（可选）
-在 `CNN_CIFAR10图像分类.py` 的主入口中，将训练行取消注释：
+在 `resnet18_cifar10.py` 的主入口中，将训练行取消注释：
 
 ```python
 # train(train_dataset)
@@ -117,7 +117,7 @@ train(train_dataset)
 然后运行：
 
 ```bash
-python CNN_CIFAR10图像分类.py
+python resnet18_cifar10.py
 ```
 
 训练过程中会按验证集准确率保存最优权重到：
