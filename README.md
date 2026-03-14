@@ -30,7 +30,7 @@
 ### 混淆矩阵（ResNet18）
 ![](可视化/figures/confusion_matrix_resnet18.png)
 
-### 预测样例（Prediction Samples）
+### 预测样��（Prediction Samples）
 ![](可视化/figures/prediction_samples_resnet18.png)
 
 ---
@@ -86,14 +86,14 @@
 pip install -r requirements.txt
 ```
 
-> 说明：`requirements.txt` 里包含了一些 Jupyter 相关依赖；如果你只想运行训练与 Demo，后续可以再精简依赖文件。
+> 提示：`torch/torchvision` 在不同平台（CPU/CUDA）安装方式可能不同。如安装遇到问题，建议按 PyTorch 官方指引选择对应版本。
 
 ---
 
 ## 快速开始（Quick Start）
 
 ### 1) 测试/评估（默认）
-`resnet18_cifar10.py` 当前默认执行 `evaluate(test_dataset)`，并从 `model/image_model_best.pth` 加载权重：
+脚本默认执行 `evaluate(test_dataset)`，并从 `model/image_model_best.pth` 加载权重：
 
 ```bash
 python resnet18_cifar10.py
@@ -137,6 +137,13 @@ streamlit run 图像分类app.py
 - 上传一张图片，输出预测类别与 **Top-3 概率**（柱状图）
 - Demo 默认加载权重：`model/image_model_best.pth`
 
+### Demo 截图
+> 下面为 Streamlit 页面截图（无需运行也可直观看到效果）：
+
+![](assets/demo_streamlit_1.png)
+
+![](assets/demo_streamlit_2.png)
+
 > 注意：该模型在 CIFAR-10 上训练，输入会被缩放到 `32x32`。对非 CIFAR-10 风格图片预测可能不稳定（正常现象）。
 
 ---
@@ -159,6 +166,9 @@ python cnn_analysis_tools.py
 ## 项目结构（Project Structure）
 ```text
 .
+├─ assets/
+│  ├─ demo_streamlit_1.png
+│  └─ demo_streamlit_2.png
 ├─ model/
 │  └─ image_model_best.pth
 ├─ 可视化/
@@ -175,7 +185,7 @@ python cnn_analysis_tools.py
 │     ├─ confusion_matrix_resnet18.png
 │     └─ prediction_samples_resnet18.png
 ├─ 测试图片/
-├─ CNN_CIFAR10图像分类.py
+├─ resnet18_cifar10.py
 ├─ cnn_analysis_tools.py
 ├─ 图像分类app.py
 ├─ requirements.txt
