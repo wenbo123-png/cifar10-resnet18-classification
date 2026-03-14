@@ -12,29 +12,6 @@
 
 ---
 
-## 结果展示（Results）
-- **测试集准确率：93.1%**
-
-### 训练曲线（Training Curves）
-| Accuracy | Loss |
-| --- | --- |
-| ![](可视化/figures/acc_curve.png) | ![](可视化/figures/loss_curve.png) |
-
-| Learning Rate | Time / Epoch |
-| --- | --- |
-| ![](可视化/figures/lr_curve.png) | ![](可视化/figures/time_curve.png) |
-
-### Base CNN vs ResNet18 对比（Comparison）
-![](可视化/figures/compare_base_vs_best.png)
-
-### 混淆矩阵（ResNet18）
-![](可视化/figures/confusion_matrix_resnet18.png)
-
-### 预测样��（Prediction Samples）
-![](可视化/figures/prediction_samples_resnet18.png)
-
----
-
 ## 核心方法（Core Methods）
 
 ### 数据集与预处理
@@ -62,6 +39,30 @@
 - Early Stopping：验证集准确率长期无提升则提前停止，并保存最优权重到 `model/image_model_best.pth`。
 
 ---
+
+## 结果展示（Results）
+- **测试集准确率：93.1%**
+
+### 训练曲线（Training Curves）
+| Accuracy | Loss |
+| --- | --- |
+| ![](可视化/figures/acc_curve.png) | ![](可视化/figures/loss_curve.png) |
+
+| Learning Rate | Time / Epoch |
+| --- | --- |
+| ![](可视化/figures/lr_curve.png) | ![](可视化/figures/time_curve.png) |
+
+### Base CNN vs ResNet18 对比（Comparison）
+![](可视化/figures/compare_base_vs_best.png)
+
+### 混淆矩阵（ResNet18）
+![](可视化/figures/confusion_matrix_resnet18.png)
+
+### 预测样��（Prediction Samples）
+![](可视化/figures/prediction_samples_resnet18.png)
+
+---
+
 
 ## 图表解读（Interpretation）
 > 详细文字版见：`可视化/图像分析说明.txt`
