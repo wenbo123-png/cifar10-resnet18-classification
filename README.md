@@ -35,6 +35,34 @@
 
 ---
 
+## 核心方法（Core Methods）
+
+### 数据集与预处理
+- 数据集：`torchvision.datasets.CIFAR10`，运行时 `download=True` 自动下载到本地 `./data`（数据集本体不上传仓库）。
+- 标准化：使用 CIFAR-10 常用均值/方差  
+  `mean=(0.4914, 0.4822, 0.4465)`，`std=(0.2470, 0.2435, 0.2616)`。
+- 训练集数据增强（提升泛化能力）：
+  - `RandomCrop(32, padding=4)`：随机裁剪
+  - `RandomHorizontalFlip()`：随机水平翻转
+  - `RandomErasing(p=0.1, scale=(0.02, 0.20), ratio=(0.3, 3.3))`：随机擦除（提升遮挡/局部缺失场景鲁棒性）
+- 测试集：仅 `ToTensor + Normalize`，保证评估稳定。
+
+### 模型：ResNet18（针对 CIFAR-10 结构适配）
+- Backbone：`torchvision.models.resnet18(weights=None)`（不使用预训练权重）。
+- 针对 `32×32` 小图的适配：
+  - 将首层卷积改为 `3×3, stride=1, padding=1`
+  - 去掉首个 `maxpool`（避免过早下采样丢失细节）
+  - 最后全连接层 `fc` 改为 `10` 类输出
+
+### 训练策略（Training Setup）
+- 训练/验证划分：将训练集切分为 `45k/5k`，并通过固定随机种子保证可复现。
+- 损失函数：`CrossEntropyLoss(label_smoothing=0.05)`（缓解过拟合/过度自信）。
+- 优化器：`Adam(lr=1e-3, weight_decay=1e-4)`（L2 正则）。
+- 学习率调度：`CosineAnnealingLR(T_max=80, eta_min=1e-4)`（余弦退火，后期稳定微调）。
+- Early Stopping：验证集准确率长期无提升则提前停止，并保存最优权重到 `model/image_model_best.pth`。
+
+---
+
 ## 图表解读（Interpretation）
 > 详细文字版见：`可视化/图像分析说明.txt`
 
