@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import torch
 from torch.utils.data import DataLoader
-from CNN_CIFAR10图像分类 import create_dataset, ImageModel, device, BATCH_SIZE
+from resnet18_cifar10 import create_dataset, ImageModel, device, BATCH_SIZE
 import random
 
 # 模型对比图绘制
